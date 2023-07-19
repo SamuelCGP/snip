@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cyf6x6h6lxlou"]
+
+[ext_resource type="Texture2D" uid="uid://c7wiq62g15cie" path="res://Sprites/CardHolder.png" id="1_shybq"]
+
+[node name="CardHolder" type="Node2D" groups=["card_holder"]]
+scale = Vector2(5, 5)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 1
+texture = ExtResource("1_shybq")

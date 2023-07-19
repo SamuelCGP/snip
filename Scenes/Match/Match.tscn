@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bs4ws507py1mt"]
+
+[ext_resource type="PackedScene" uid="uid://c7870kylkxitm" path="res://Scenes/Match/Hand.tscn" id="1_olbnx"]
+[ext_resource type="PackedScene" uid="uid://cdbv511uj1kj7" path="res://Scenes/Match/Cards/CardNode.tscn" id="2_kbngs"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Hand" parent="." instance=ExtResource("1_olbnx")]
+position = Vector2(566, 573)
+cardScene = ExtResource("2_kbngs")

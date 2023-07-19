@@ -1,0 +1,4 @@
+id,name,category,attribute,type,willCost,effect,attack,life,sigils
+B001,Monster Test 1,0,0,0,10,TEST,10,10,TEST
+B002,Monster Test 2,0,0,0,10,TEST,10,10,TEST
+B003,Monster Test 3,0,0,0,10,TEST,10,10,TEST

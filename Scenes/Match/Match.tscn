@@ -1,10 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://bs4ws507py1mt"]
+[gd_scene load_steps=4 format=3 uid="uid://dnese6gdxu2f6"]
 
-[ext_resource type="PackedScene" uid="uid://c7870kylkxitm" path="res://Scenes/Match/Hand.tscn" id="1_olbnx"]
-[ext_resource type="PackedScene" uid="uid://cdbv511uj1kj7" path="res://Scenes/Match/Cards/CardNode.tscn" id="2_kbngs"]
+[ext_resource type="Script" path="res://Scripts/match.gd" id="1_juxfg"]
+[ext_resource type="PackedScene" uid="uid://n1sl8tppdbj6" path="res://Scenes/Match/Hand.tscn" id="1_olbnx"]
+[ext_resource type="PackedScene" uid="uid://dq7fsblgkj7p2" path="res://Scenes/Match/Cards/CardHolder.tscn" id="2_u7fhi"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Match" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_juxfg")
 
 [node name="Hand" parent="." instance=ExtResource("1_olbnx")]
-position = Vector2(566, 573)
-cardScene = ExtResource("2_kbngs")
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="CardHolder" parent="." instance=ExtResource("2_u7fhi")]
+layout_mode = 0
+offset_left = 499.0
+offset_top = 165.0
+offset_right = 649.0
+offset_bottom = 315.0

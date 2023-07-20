@@ -2,7 +2,6 @@ extends Node
 
 const PATH_TO_SAVE = "user://game.save"
 
-
 func loadSave():
 	var file := FileAccess.open(PATH_TO_SAVE, FileAccess.READ)
 	var data: Dictionary = str_to_var(file.get_as_text())

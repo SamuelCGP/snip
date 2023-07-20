@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cv65w6yfsbnhj"]
+
+[ext_resource type="Script" path="res://Scripts/clickableComponent.gd" id="1_hc74b"]
+
+[node name="ClickableComponent" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_hc74b")

@@ -1,7 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://bc8f0bcrtxgnt"]
-
-[ext_resource type="PackedScene" uid="uid://cdbv511uj1kj7" path="res://Scenes/Match/Cards/CardNode.tscn" id="1_qi7dg"]
-[ext_resource type="Script" path="res://Scripts/Cards/monsterCard.gd" id="2_8smn5"]
-
-[node name="MonsterCardNode" instance=ExtResource("1_qi7dg")]
-script = ExtResource("2_8smn5")

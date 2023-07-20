@@ -1,11 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://cyf6x6h6lxlou"]
+[gd_scene load_steps=4 format=3 uid="uid://dq7fsblgkj7p2"]
 
 [ext_resource type="Texture2D" uid="uid://c7wiq62g15cie" path="res://Sprites/CardHolder.png" id="1_shybq"]
+[ext_resource type="PackedScene" uid="uid://cv65w6yfsbnhj" path="res://Scenes/Components/ClickableComponent.tscn" id="2_31268"]
+[ext_resource type="Script" path="res://Scripts/cardHolder.gd" id="2_xaial"]
 
-[node name="CardHolder" type="Node2D" groups=["card_holder"]]
-scale = Vector2(5, 5)
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="CardHolder" type="TextureRect" groups=["cardHolder"]]
 texture_filter = 1
 texture_repeat = 1
+custom_minimum_size = Vector2(150, 150)
+offset_left = -1.0
+offset_top = 2.0
+offset_right = 149.0
+offset_bottom = 152.0
 texture = ExtResource("1_shybq")
+script = ExtResource("2_xaial")
+
+[node name="ClickableComponent" parent="." instance=ExtResource("2_31268")]

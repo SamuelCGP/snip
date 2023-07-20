@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgv880ybvi7w4"
-path="res://.godot/imported/BaseCardSprites.png-6faac618b2d9552c7bb6c135797c05ed.ctex"
+uid="uid://bddfkg6dq3cic"
+path="res://.godot/imported/BaseCardFace.png-9a88e7047dd10273464c94e220eccb38.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/BaseCardSprites.png"
-dest_files=["res://.godot/imported/BaseCardSprites.png-6faac618b2d9552c7bb6c135797c05ed.ctex"]
+source_file="res://Sprites/BaseCardFace.png"
+dest_files=["res://.godot/imported/BaseCardFace.png-9a88e7047dd10273464c94e220eccb38.ctex"]
 
 [params]
 
@@ -23,7 +23,7 @@ compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false
 mipmaps/limit=-1
-roughness/mode=0
+roughness/mode=5
 roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false

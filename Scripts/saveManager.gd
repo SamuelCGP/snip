@@ -7,7 +7,7 @@ func loadSave():
 	var data: Dictionary = str_to_var(file.get_as_text())
 	file.close()
 
-	Deck.playerDeck = data.playerDeck.map(func(cardId: String):
+	DeckManager.playerDeck = data.playerDeck.map(func(cardId: String):
 		CardData.deserialize(cardId)
 	)
 
@@ -15,7 +15,7 @@ func loadSave():
 func save():
 	var saveData := {}
 
-	saveData.playerDeck = Deck.playerDeck.map(func(cardData: CardData):
+	saveData.playerDeck = DeckManager.playerDeck.map(func(cardData: CardData):
 		return cardData.serialize()
 	)
 

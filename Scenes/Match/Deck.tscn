@@ -1,3 +1,25 @@
-[gd_scene format=3 uid="uid://mjsw6mj0hhbq"]
+[gd_scene load_steps=6 format=3 uid="uid://cy67x21oxawpd"]
 
-[node name="Deck" type="Node2D"]
+[ext_resource type="Texture2D" uid="uid://bk63dkurwt0lf" path="res://Sprites/Deck.png" id="1_oup05"]
+[ext_resource type="Script" path="res://Scripts/deckContainer.gd" id="2_m5af5"]
+[ext_resource type="PackedScene" uid="uid://cv65w6yfsbnhj" path="res://Scenes/Components/ClickableComponent.tscn" id="3_722dj"]
+[ext_resource type="PackedScene" uid="uid://cne3o0ms458al" path="res://Scenes/Components/CardInventoryComponent.tscn" id="4_3j01m"]
+[ext_resource type="Script" path="res://Scripts/enabableComponent.gd" id="5_2xgi4"]
+
+[node name="Deck" type="TextureRect" node_paths=PackedStringArray("inventory")]
+texture_filter = 1
+texture_repeat = 1
+custom_minimum_size = Vector2(150, 150)
+texture = ExtResource("1_oup05")
+script = ExtResource("2_m5af5")
+inventory = NodePath("CardInventoryComponent")
+
+[node name="ClickableComponent" parent="." instance=ExtResource("3_722dj")]
+
+[node name="CardInventoryComponent" parent="." instance=ExtResource("4_3j01m")]
+
+[node name="EnabableComponent" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("5_2xgi4")

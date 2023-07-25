@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://dq7fsblgkj7p2"]
+[gd_scene load_steps=5 format=3 uid="uid://dq7fsblgkj7p2"]
 
 [ext_resource type="Texture2D" uid="uid://c7wiq62g15cie" path="res://Sprites/CardHolder.png" id="1_shybq"]
 [ext_resource type="PackedScene" uid="uid://cv65w6yfsbnhj" path="res://Scenes/Components/ClickableComponent.tscn" id="2_31268"]
 [ext_resource type="Script" path="res://Scripts/cardHolder.gd" id="2_xaial"]
+[ext_resource type="PackedScene" uid="uid://cne3o0ms458al" path="res://Scenes/Components/CardInventoryComponent.tscn" id="4_qk7ex"]
 
-[node name="CardHolder" type="TextureRect" groups=["cardHolder"]]
+[node name="CardHolder" type="TextureRect" node_paths=PackedStringArray("inventory") groups=["cardHolder"]]
 texture_filter = 1
 texture_repeat = 1
 custom_minimum_size = Vector2(150, 150)
@@ -14,5 +15,8 @@ offset_right = 149.0
 offset_bottom = 152.0
 texture = ExtResource("1_shybq")
 script = ExtResource("2_xaial")
+inventory = NodePath("CardInventoryComponent")
 
 [node name="ClickableComponent" parent="." instance=ExtResource("2_31268")]
+
+[node name="CardInventoryComponent" parent="." instance=ExtResource("4_qk7ex")]

@@ -1,27 +1,42 @@
-[gd_scene load_steps=4 format=3 uid="uid://dnese6gdxu2f6"]
+[gd_scene load_steps=5 format=3 uid="uid://ble2ckd3pj80p"]
 
-[ext_resource type="Script" path="res://Scripts/match.gd" id="1_juxfg"]
 [ext_resource type="PackedScene" uid="uid://n1sl8tppdbj6" path="res://Scenes/Match/Hand.tscn" id="1_olbnx"]
-[ext_resource type="PackedScene" uid="uid://dq7fsblgkj7p2" path="res://Scenes/Match/Cards/CardHolder.tscn" id="2_u7fhi"]
+[ext_resource type="Theme" uid="uid://dkk6wb0dyxbg4" path="res://Themes/Theme.tres" id="4_1hrnf"]
+[ext_resource type="PackedScene" uid="uid://dj7p56yalgbgn" path="res://Scenes/Match/Board.tscn" id="4_g3vle"]
+[ext_resource type="Script" path="res://Scripts/turnManager.gd" id="5_gavy8"]
 
 [node name="Match" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 1.0
-offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_juxfg")
+
+[node name="Board" parent="." node_paths=PackedStringArray("playerHand", "turnManager") instance=ExtResource("4_g3vle")]
+layout_mode = 1
+playerHand = NodePath("../Hand")
+turnManager = NodePath("../TurnManager")
 
 [node name="Hand" parent="." instance=ExtResource("1_olbnx")]
-unique_name_in_owner = true
 layout_mode = 1
 
-[node name="CardHolder" parent="." instance=ExtResource("2_u7fhi")]
-layout_mode = 0
-offset_left = 499.0
-offset_top = 165.0
-offset_right = 649.0
-offset_bottom = 315.0
+[node name="TurnManager" type="Node" parent="."]
+script = ExtResource("5_gavy8")
+turnPhaseOrder = Array[int]([0, 1, 2])
+
+[node name="EndTurn" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -78.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("4_1hrnf")
+text = "End Turn"
+
+[connection signal="button_down" from="EndTurn" to="TurnManager" method="_on_end_turn_button_down"]

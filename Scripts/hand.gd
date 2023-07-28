@@ -1,50 +1,54 @@
 extends Control
 class_name Hand
 
-@export var cardContainer: HBoxContainer
-@export var inventory: CardInventoryComponent
+@onready var cardContainer: HBoxContainer = $CardContainer
+@onready var inventory: CardInventoryComponent = $CardInventoryComponent
 @export var cardScene: PackedScene
+var playerOwner: Player:
+	set(value):
+		playerOwner = value
+		if value.id == PlayerManager.PlayerID.ALLY:
+			clicked.connect(onClick)
 
-signal clicked
+
+signal clicked(hand: Hand)
+signal summonAttempted(hand: Hand, card: CardNode)
 
 var selectedCard: CardNode
 
-
-func _ready():
-	clicked.connect(onClick)
-	Events.drawnCards.connect(onCardsDrawn)
-
-	var rng = RandomNumberGenerator.new()
-	rng.randomize()
-
-	for i in 3:
-		var cardIndex := rng.randi_range(0, DeckManager.playerDeck.size() - 1)
-		var cardData := DeckManager.playerDeck[cardIndex]
-		addCard(cardData)
-
+func setOwner(player: Player):
+	playerOwner = player
 
 func onClick():
-	print("cricou")
 	if selectCard:
 		deselectCard()
+
+func onSummonAttempt(
+	card: CardNode,
+):
+	if cardContainer.get_children().has(card):
+		summonAttempted.emit(card)
 
 
 func addCard(cardData: CardData):
 	inventory.add(cardData)
 
-	var cardNode = cardScene.instantiate() as CardNode
-	cardNode.cardData = cardData
+	if playerOwner.id == PlayerManager.PlayerID.ALLY:
+		var cardNode = cardScene.instantiate() as CardNode
+		cardNode.cardData = cardData
 
-	cardNode.clicked.connect(selectCard)
+		if playerOwner.id == PlayerManager.PlayerID.ALLY:
+			cardNode.clicked.connect(selectCard)
 
-	cardContainer.add_child(cardNode)
+		cardContainer.add_child(cardNode)
+		cardNode.playerOwner = playerOwner
+		cardNode.summonAttempted.connect(onSummonAttempt)
 
 
 func removeCard(card: CardNode):
 	if selectedCard == card:
 		selectedCard = null
-
-	card.cardSelected = false
+		card.cardSelected = false
 
 	inventory.remove(card.cardData)
 
@@ -70,10 +74,6 @@ func deselectCard():
 		selectedCard = null
 
 
-func onCardsDrawn(drawnCards: Array[CardData]):
+func onCardsDraw(drawnCards: Array[CardData]):
 	for card in drawnCards:
 		addCard(card)
-
-
-func _process(delta):
-	pass

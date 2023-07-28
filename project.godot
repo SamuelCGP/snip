@@ -17,6 +17,6 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-SaveManager="*res://Scripts/saveManager.gd"
-DeckManager="*res://Scripts/deckManager.gd"
+SaveManager="*res://Scripts/Managers/saveManager.gd"
+DeckManager="*res://Scripts/Managers/deckManager.gd"
 Events="*res://Scripts/events.gd"

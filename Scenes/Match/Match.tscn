@@ -1,9 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://ble2ckd3pj80p"]
+[gd_scene load_steps=11 format=3 uid="uid://ble2ckd3pj80p"]
 
+[ext_resource type="Script" path="res://Scripts/Managers/matchManager.gd" id="1_8upiq"]
 [ext_resource type="PackedScene" uid="uid://n1sl8tppdbj6" path="res://Scenes/Match/Hand.tscn" id="1_olbnx"]
+[ext_resource type="Script" path="res://Scripts/board.gd" id="1_xlhae"]
+[ext_resource type="Script" path="res://Scripts/boardSide.gd" id="2_fhjf2"]
+[ext_resource type="PackedScene" uid="uid://cy67x21oxawpd" path="res://Scenes/Match/Deck.tscn" id="3_lun4x"]
 [ext_resource type="Theme" uid="uid://dkk6wb0dyxbg4" path="res://Themes/Theme.tres" id="4_1hrnf"]
-[ext_resource type="PackedScene" uid="uid://dj7p56yalgbgn" path="res://Scenes/Match/Board.tscn" id="4_g3vle"]
-[ext_resource type="Script" path="res://Scripts/turnManager.gd" id="5_gavy8"]
+[ext_resource type="PackedScene" uid="uid://dq7fsblgkj7p2" path="res://Scenes/Match/Cards/CardHolder.tscn" id="4_m6yoo"]
+[ext_resource type="PackedScene" uid="uid://cne3o0ms458al" path="res://Scenes/Components/CardInventoryComponent.tscn" id="5_kmtu5"]
+[ext_resource type="Script" path="res://Scripts/Managers/battleManager.gd" id="11_ufw3r"]
+[ext_resource type="Script" path="res://Scripts/Managers/playerManager.gd" id="12_f627q"]
 
 [node name="Match" type="Control"]
 layout_mode = 3
@@ -12,18 +18,126 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_8upiq")
 
-[node name="Board" parent="." node_paths=PackedStringArray("playerHand", "turnManager") instance=ExtResource("4_g3vle")]
+[node name="PlayerManager" type="Node" parent="."]
+script = ExtResource("12_f627q")
+
+[node name="BattleManager" type="Node" parent="."]
+script = ExtResource("11_ufw3r")
+
+[node name="Board" type="Control" parent="."]
 layout_mode = 1
-playerHand = NodePath("../Hand")
-turnManager = NodePath("../TurnManager")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_xlhae")
 
-[node name="Hand" parent="." instance=ExtResource("1_olbnx")]
+[node name="AllySide" type="Control" parent="Board"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_fhjf2")
+
+[node name="Deck" parent="Board/AllySide" instance=ExtResource("3_lun4x")]
+layout_mode = 0
+offset_left = 834.0
+offset_top = 458.0
+offset_right = 984.0
+offset_bottom = 608.0
+mouse_filter = 0
+
+[node name="CardHolderContainer" type="Control" parent="Board/AllySide"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CardHolder" parent="Board/AllySide/CardHolderContainer" instance=ExtResource("4_m6yoo")]
+layout_mode = 0
+offset_left = 219.0
+offset_top = 455.0
+offset_right = 369.0
+offset_bottom = 605.0
+types = Array[int]([0, 3, 2])
+
+[node name="CardHolder2" parent="Board/AllySide/CardHolderContainer" instance=ExtResource("4_m6yoo")]
+layout_mode = 0
+offset_left = 419.0
+offset_top = 455.0
+offset_right = 569.0
+offset_bottom = 605.0
+types = Array[int]([0, 3, 2])
+
+[node name="CardHolder3" parent="Board/AllySide/CardHolderContainer" instance=ExtResource("4_m6yoo")]
+layout_mode = 0
+offset_left = 605.0
+offset_top = 460.0
+offset_right = 755.0
+offset_bottom = 610.0
+types = Array[int]([0, 3, 2])
+
+[node name="CardInventoryComponent" parent="Board/AllySide" instance=ExtResource("5_kmtu5")]
+
+[node name="EnemySide" type="Control" parent="Board"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_fhjf2")
+
+[node name="Deck" parent="Board/EnemySide" instance=ExtResource("3_lun4x")]
+layout_mode = 0
+offset_left = 834.0
+offset_top = 142.0
+offset_right = 984.0
+offset_bottom = 292.0
+mouse_filter = 0
+
+[node name="CardHolderContainer" type="Control" parent="Board/EnemySide"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CardHolder" parent="Board/EnemySide/CardHolderContainer" instance=ExtResource("4_m6yoo")]
+layout_mode = 0
+offset_left = 213.0
+offset_top = 141.0
+offset_right = 363.0
+offset_bottom = 291.0
+types = Array[int]([0, 3, 2])
+initCardId = "B002"
+
+[node name="CardHolder2" parent="Board/EnemySide/CardHolderContainer" instance=ExtResource("4_m6yoo")]
+layout_mode = 0
+offset_left = 413.0
+offset_top = 141.0
+offset_right = 563.0
+offset_bottom = 291.0
+types = Array[int]([0, 3, 2])
+
+[node name="CardHolder3" parent="Board/EnemySide/CardHolderContainer" instance=ExtResource("4_m6yoo")]
+layout_mode = 0
+offset_left = 599.0
+offset_top = 146.0
+offset_right = 749.0
+offset_bottom = 296.0
+types = Array[int]([0, 3, 2])
+
+[node name="CardInventoryComponent" parent="Board/EnemySide" instance=ExtResource("5_kmtu5")]
+
+[node name="AllyHand" parent="." instance=ExtResource("1_olbnx")]
 layout_mode = 1
 
-[node name="TurnManager" type="Node" parent="."]
-script = ExtResource("5_gavy8")
-turnPhaseOrder = Array[int]([0, 1, 2])
+[node name="EnemyHand" parent="." instance=ExtResource("1_olbnx")]
+layout_mode = 1
+
+[node name="CardContainer" parent="EnemyHand" index="0"]
+visible = false
+
+[node name="ClickableComponent" parent="EnemyHand" index="1"]
+visible = false
 
 [node name="EndTurn" type="Button" parent="."]
 layout_mode = 1
@@ -39,4 +153,6 @@ grow_vertical = 0
 theme = ExtResource("4_1hrnf")
 text = "End Turn"
 
-[connection signal="button_down" from="EndTurn" to="TurnManager" method="_on_end_turn_button_down"]
+[connection signal="button_down" from="EndTurn" to="." method="_on_end_turn_button_down"]
+
+[editable path="EnemyHand"]

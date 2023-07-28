@@ -29,3 +29,37 @@ horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="ClickableComponent" parent="." instance=ExtResource("4_rklub")]
+
+[node name="ContextMenu" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -78.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="Summon" type="Button" parent="ContextMenu"]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_q40un")
+text = "Summon"
+
+[node name="Attack" type="Button" parent="ContextMenu"]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_q40un")
+text = "Attack
+"
+
+[node name="Effect" type="Button" parent="ContextMenu"]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_q40un")
+text = "Effect
+"
+
+[connection signal="button_down" from="ContextMenu/Summon" to="." method="_on_summon_button_down"]
+[connection signal="button_down" from="ContextMenu/Attack" to="." method="_on_attack_button_down"]
+[connection signal="button_down" from="ContextMenu/Effect" to="." method="_on_effect_button_down"]

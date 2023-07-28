@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://cv65w6yfsbnhj"]
 
-[ext_resource type="Script" path="res://Scripts/clickableComponent.gd" id="1_hc74b"]
+[ext_resource type="Script" path="res://Scripts/Components/clickableComponent.gd" id="1_ub3aq"]
 
 [node name="ClickableComponent" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
-script = ExtResource("1_hc74b")
+script = ExtResource("1_ub3aq")

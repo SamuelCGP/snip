@@ -24,4 +24,3 @@ func _init(
 	attack = _attack
 	life = _life
 	sigils = _sigils
-	pass

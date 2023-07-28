@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cv65w6yfsbnhj" path="res://Scenes/Components/ClickableComponent.tscn" id="3_3j360"]
 [ext_resource type="PackedScene" uid="uid://cne3o0ms458al" path="res://Scenes/Components/CardInventoryComponent.tscn" id="4_y6yh4"]
 
-[node name="Hand" type="Control" node_paths=PackedStringArray("cardContainer", "inventory")]
+[node name="Hand" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,8 +14,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_cyind")
-cardContainer = NodePath("CardContainer")
-inventory = NodePath("CardInventoryComponent")
 cardScene = ExtResource("2_xqatj")
 
 [node name="CardContainer" type="HBoxContainer" parent="."]

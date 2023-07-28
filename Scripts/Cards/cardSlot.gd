@@ -1,7 +1,7 @@
 extends TextureRect
-class_name CardHolder
+class_name CardSlot
 
-signal clicked(cardHolder: CardHolder)
+signal clicked(cardSlot: CardSlot)
 
 @onready var inventory: CardInventoryComponent = $CardInventoryComponent
 @export var types: Array[CardData.CardType]

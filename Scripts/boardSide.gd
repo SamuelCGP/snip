@@ -5,8 +5,8 @@ class_name BoardSide
 @onready var cardHolderContainer: Control = $CardHolderContainer
 @onready var deck: DeckContainer = $Deck
 
-signal summonTargetSet(card: CardNode, target: CardHolder, boardSide: BoardSide)
-signal cardPlaced(card: CardNode, holder: CardHolder, boardSide: BoardSide)
+signal summonTargetSet(card: CardNode, target: CardSlot, boardSide: BoardSide)
+signal cardPlaced(card: CardNode, slot: CardSlot, boardSide: BoardSide)
 
 var summoningCard: CardNode = null
 
@@ -14,16 +14,16 @@ var playerOwner: Player:
 	set(value):
 		playerOwner = value
 
-		for holder in cardHolderContainer.get_children():
-			holder = holder as CardHolder
-			holder.playerOwner = value
+		for slot in cardHolderContainer.get_children():
+			slot = slot as CardSlot
+			slot.playerOwner = value
 	
 		deck.playerOwner = value
 
 func setHoldersOwner():
-	for holder in cardHolderContainer.get_children():
-		holder = holder as CardHolder
-		holder.playerOwner = playerOwner
+	for slot in cardHolderContainer.get_children():
+		slot = slot as CardSlot
+		slot.playerOwner = playerOwner
 	
 	deck.playerOwner = playerOwner
 
@@ -31,20 +31,20 @@ func hasSummonedCards() -> bool:
 	return !summonedCardsInv.isEmpty()
 
 func _ready():
-	for cardHolder in cardHolderContainer.get_children():
-		cardHolder = cardHolder as CardHolder
+	for cardSlot in cardHolderContainer.get_children():
+		cardSlot = cardSlot as CardSlot
 
-		cardHolder.clicked.connect(onCardHolderClick)
+		cardSlot.clicked.connect(onCardHolderClick)
 
-func onCardHolderClick(cardHolder: CardHolder):
+func onCardHolderClick(cardSlot: CardSlot):
 	if summoningCard:
-		if cardHolder.inventory.isEmpty() && cardHolder.types.has(summoningCard.cardData.cardType):
-			summonTargetSet.emit(summoningCard, cardHolder, self)
+		if cardSlot.inventory.isEmpty() && cardSlot.types.has(summoningCard.cardData.cardType):
+			summonTargetSet.emit(summoningCard, cardSlot, self)
 			summoningCard = null
 
 func onSummonAttempt(card: CardNode):
 	summoningCard = card
 
-func placeCardAtHolder(card: CardNode, cardHolder: CardHolder):
-	cardHolder.addCard(card)
-	cardPlaced.emit(card, cardHolder, self)
+func placeCardAtHolder(card: CardNode, cardSlot: CardSlot):
+	cardSlot.addCard(card)
+	cardPlaced.emit(card, cardSlot, self)

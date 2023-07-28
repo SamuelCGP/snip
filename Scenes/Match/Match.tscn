@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/boardSide.gd" id="2_fhjf2"]
 [ext_resource type="PackedScene" uid="uid://cy67x21oxawpd" path="res://Scenes/Match/Deck.tscn" id="3_lun4x"]
 [ext_resource type="Theme" uid="uid://dkk6wb0dyxbg4" path="res://Themes/Theme.tres" id="4_1hrnf"]
-[ext_resource type="PackedScene" uid="uid://dq7fsblgkj7p2" path="res://Scenes/Match/Cards/CardHolder.tscn" id="4_m6yoo"]
+[ext_resource type="PackedScene" uid="uid://dq7fsblgkj7p2" path="res://Scenes/Match/Cards/CardSlot.tscn" id="4_m6yoo"]
 [ext_resource type="PackedScene" uid="uid://cne3o0ms458al" path="res://Scenes/Components/CardInventoryComponent.tscn" id="5_kmtu5"]
 [ext_resource type="Script" path="res://Scripts/Managers/battleManager.gd" id="11_ufw3r"]
 [ext_resource type="Script" path="res://Scripts/Managers/playerManager.gd" id="12_f627q"]
@@ -55,7 +55,7 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="CardHolder" parent="Board/AllySide/CardHolderContainer" instance=ExtResource("4_m6yoo")]
+[node name="CardSlot" parent="Board/AllySide/CardHolderContainer" instance=ExtResource("4_m6yoo")]
 layout_mode = 0
 offset_left = 219.0
 offset_top = 455.0
@@ -100,7 +100,7 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="CardHolder" parent="Board/EnemySide/CardHolderContainer" instance=ExtResource("4_m6yoo")]
+[node name="CardSlot" parent="Board/EnemySide/CardHolderContainer" instance=ExtResource("4_m6yoo")]
 layout_mode = 0
 offset_left = 213.0
 offset_top = 141.0

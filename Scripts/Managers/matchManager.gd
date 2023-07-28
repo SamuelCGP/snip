@@ -34,7 +34,7 @@ func _ready():
 	playerManager.willChanged.connect(onWillChanged)
 	startDrawPhase()
 
-func onSummonTargetSet(card: CardNode, target: CardHolder, boardSide: BoardSide):
+func onSummonTargetSet(card: CardNode, target: CardSlot, boardSide: BoardSide):
 	hands[card.playerOwner.id].removeCard(card)
 	boardSide.placeCardAtHolder(card, target)
 	card.state = CardNode.CardState.SUMMONED

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dj7p56yalgbgn"]
 
-[ext_resource type="PackedScene" uid="uid://dq7fsblgkj7p2" path="res://Scenes/Match/Cards/CardHolder.tscn" id="1_posy3"]
+[ext_resource type="PackedScene" uid="uid://dq7fsblgkj7p2" path="res://Scenes/Match/Cards/CardSlot.tscn" id="1_posy3"]
 [ext_resource type="Script" path="res://Scripts/board.gd" id="1_u5pv8"]
 [ext_resource type="Script" path="res://Scripts/boardSide.gd" id="2_awlky"]
 [ext_resource type="PackedScene" uid="uid://cy67x21oxawpd" path="res://Scenes/Match/Deck.tscn" id="3_u8aqe"]
@@ -35,7 +35,7 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="CardHolder" parent="AllySide/CardHolderContainer" instance=ExtResource("1_posy3")]
+[node name="CardSlot" parent="AllySide/CardHolderContainer" instance=ExtResource("1_posy3")]
 layout_mode = 0
 offset_left = 219.0
 offset_top = 455.0
@@ -80,7 +80,7 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="CardHolder" parent="EnemySide/CardHolderContainer" instance=ExtResource("1_posy3")]
+[node name="CardSlot" parent="EnemySide/CardHolderContainer" instance=ExtResource("1_posy3")]
 layout_mode = 0
 offset_left = 213.0
 offset_top = 141.0

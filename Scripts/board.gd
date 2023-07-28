@@ -17,5 +17,5 @@ func setSideOwners(players: Dictionary):
 		var index: int = PlayerManager.PlayerID[id]
 		boardSides[index].playerOwner = players[index]
 
-func onCardPlace(card: CardNode, holder: CardHolder, boardSide: BoardSide):
+func onCardPlace(card: CardNode, slot: CardSlot, boardSide: BoardSide):
 	pass

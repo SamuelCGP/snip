@@ -6,6 +6,7 @@ class_name BoardSide
 @onready var deck: DeckContainer = $Deck
 
 signal summonTargetSet(card: CardNode, target: CardHolder, boardSide: BoardSide)
+signal cardPlaced(card: CardNode, holder: CardHolder, boardSide: BoardSide)
 
 var summoningCard: CardNode = null
 
@@ -46,3 +47,4 @@ func onSummonAttempt(card: CardNode):
 
 func placeCardAtHolder(card: CardNode, cardHolder: CardHolder):
 	cardHolder.addCard(card)
+	cardPlaced.emit(card, cardHolder, self)

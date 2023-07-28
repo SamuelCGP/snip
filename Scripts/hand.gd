@@ -23,6 +23,13 @@ func onClick():
 	if selectCard:
 		deselectCard()
 
+func _process(_delta):
+	if selectedCard:
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			var mousePos: Vector2 = get_viewport().get_mouse_position()
+			if !cardContainer.get_global_rect().has_point(mousePos):
+				deselectCard()
+
 func onSummonAttempt(
 	card: CardNode,
 ):

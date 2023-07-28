@@ -83,11 +83,13 @@ func newPlayerTurn():
 		newTurn()
 
 func startMainPhase():
+	board.canBattle = true
 	for card in get_tree().get_nodes_in_group("card"):
 		card = card as CardNode
 		verifyCardCanSummon(card)
 
 func endMainPhase():
+	board.canBattle = false
 	for card in get_tree().get_nodes_in_group("card"):
 		card = card as CardNode
 		card.canSummon = false

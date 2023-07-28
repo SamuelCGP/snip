@@ -3,7 +3,17 @@ class_name Hand
 
 @onready var cardContainer: HBoxContainer = $CardContainer
 @onready var inventory: CardInventoryComponent = $CardInventoryComponent
-@export var cardScene: PackedScene
+
+@export_category("Card Scenes")
+@export var monsterCard: PackedScene
+@export var mageCard: PackedScene
+@export var prophecyCard: PackedScene
+@export var spellCard: PackedScene
+
+@onready var cardScenes = {
+	MONSTER = monsterCard
+}
+
 var playerOwner: Player:
 	set(value):
 		playerOwner = value
@@ -14,7 +24,14 @@ var playerOwner: Player:
 signal clicked(hand: Hand)
 signal summonAttempted(hand: Hand, card: CardNode)
 
-var selectedCard: CardNode
+var selectedCard: CardNode:
+	set(value):
+		if selectedCard:
+			selectedCard.cardSelected = false
+
+		selectedCard = value
+		if selectedCard:
+			selectedCard.cardSelected = true
 
 func setOwner(player: Player):
 	playerOwner = player
@@ -41,7 +58,7 @@ func addCard(cardData: CardData):
 	inventory.add(cardData)
 
 	if playerOwner.id == PlayerManager.PlayerID.ALLY:
-		var cardNode = cardScene.instantiate() as CardNode
+		var cardNode = cardScenes[CardData.CardType.keys()[cardData.cardType]].instantiate() as CardNode
 		cardNode.cardData = cardData
 
 		if playerOwner.id == PlayerManager.PlayerID.ALLY:
@@ -55,7 +72,6 @@ func addCard(cardData: CardData):
 func removeCard(card: CardNode):
 	if selectedCard == card:
 		selectedCard = null
-		card.cardSelected = false
 
 	inventory.remove(card.cardData)
 
@@ -71,14 +87,12 @@ func selectCard(card: CardNode):
 
 		deselectCard()
 
-	card.cardSelected = true
 	selectedCard = card
 
 
 func deselectCard():
 	if selectedCard:
 		selectedCard.cardSelected = false
-		selectedCard = null
 
 
 func onCardsDraw(drawnCards: Array[CardData]):

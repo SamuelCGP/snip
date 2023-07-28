@@ -3,9 +3,8 @@ class_name MonsterCardData
 
 var willCost: int
 var attack: int
-var life: int
+var hp: int
 var sigils: String
-
 
 func _init(
 	_id: String,
@@ -16,11 +15,11 @@ func _init(
 	_willCost: int,
 	_effect: String,
 	_attack: int,
-	_life: int,
+	_hp: int,
 	_sigils: String
 ):
 	super(_id, _cardName, _category, _type, _attribute, CardData.CardType.MONSTER)
 	willCost = _willCost
 	attack = _attack
-	life = _life
+	hp = _hp
 	sigils = _sigils

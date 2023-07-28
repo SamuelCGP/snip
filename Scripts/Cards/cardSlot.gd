@@ -13,8 +13,8 @@ var playerOwner: Player:
 			var card: CardNode = cardScene.instantiate() as CardNode
 			card.cardData = CardData.deserialize(initCardId)
 			card.playerOwner = value
-			addCard(card)
 			card.state = CardNode.CardState.SUMMONED
+			get_parent().get_parent().placeCardAtSlot(card, self)
 
 @export var initCardId: String
 @export var cardScene: PackedScene
@@ -22,10 +22,12 @@ var playerOwner: Player:
 func onClick():
 	clicked.emit(self)
 
+func contains(card: CardNode) -> bool:
+	return inventory.hasCard(card.cardData)
+
 func removeCard(card: CardNode):
 	inventory.remove(card.cardData)
 	remove_child(card)
-
 
 func addCard(card: CardNode):
 	inventory.add(card.cardData)

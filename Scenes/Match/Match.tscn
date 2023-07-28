@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ble2ckd3pj80p"]
+[gd_scene load_steps=12 format=3 uid="uid://ble2ckd3pj80p"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/matchManager.gd" id="1_8upiq"]
 [ext_resource type="PackedScene" uid="uid://n1sl8tppdbj6" path="res://Scenes/Match/Hand.tscn" id="1_olbnx"]
@@ -8,6 +8,7 @@
 [ext_resource type="Theme" uid="uid://dkk6wb0dyxbg4" path="res://Themes/Theme.tres" id="4_1hrnf"]
 [ext_resource type="PackedScene" uid="uid://dq7fsblgkj7p2" path="res://Scenes/Match/Cards/CardSlot.tscn" id="4_m6yoo"]
 [ext_resource type="PackedScene" uid="uid://cne3o0ms458al" path="res://Scenes/Components/CardInventoryComponent.tscn" id="5_kmtu5"]
+[ext_resource type="PackedScene" uid="uid://cvw5tn7hsvms5" path="res://Scenes/Match/Graveyard.tscn" id="9_tb51e"]
 [ext_resource type="Script" path="res://Scripts/Managers/battleManager.gd" id="11_ufw3r"]
 [ext_resource type="Script" path="res://Scripts/Managers/playerManager.gd" id="12_f627q"]
 
@@ -37,49 +38,67 @@ mouse_filter = 2
 script = ExtResource("1_xlhae")
 
 [node name="AllySide" type="Control" parent="Board"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("2_fhjf2")
 
 [node name="Deck" parent="Board/AllySide" instance=ExtResource("3_lun4x")]
 layout_mode = 0
-offset_left = 834.0
-offset_top = 458.0
-offset_right = 984.0
-offset_bottom = 608.0
+offset_left = 896.0
+offset_top = 455.0
+offset_right = 1046.0
+offset_bottom = 605.0
 mouse_filter = 0
 
-[node name="CardHolderContainer" type="Control" parent="Board/AllySide"]
+[node name="CardSlotContainer" type="Control" parent="Board/AllySide"]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="CardSlot" parent="Board/AllySide/CardHolderContainer" instance=ExtResource("4_m6yoo")]
+[node name="CardSlot" parent="Board/AllySide/CardSlotContainer" instance=ExtResource("4_m6yoo")]
 layout_mode = 0
-offset_left = 219.0
-offset_top = 455.0
-offset_right = 369.0
-offset_bottom = 605.0
-types = Array[int]([0, 3, 2])
-
-[node name="CardHolder2" parent="Board/AllySide/CardHolderContainer" instance=ExtResource("4_m6yoo")]
-layout_mode = 0
-offset_left = 419.0
-offset_top = 455.0
-offset_right = 569.0
-offset_bottom = 605.0
-types = Array[int]([0, 3, 2])
-
-[node name="CardHolder3" parent="Board/AllySide/CardHolderContainer" instance=ExtResource("4_m6yoo")]
-layout_mode = 0
-offset_left = 605.0
+offset_left = 304.0
 offset_top = 460.0
-offset_right = 755.0
+offset_right = 454.0
+offset_bottom = 610.0
+types = Array[int]([0, 3, 2])
+
+[node name="CardHolder2" parent="Board/AllySide/CardSlotContainer" instance=ExtResource("4_m6yoo")]
+layout_mode = 0
+offset_left = 454.0
+offset_top = 460.0
+offset_right = 604.0
+offset_bottom = 610.0
+types = Array[int]([0, 3, 2])
+
+[node name="CardHolder3" parent="Board/AllySide/CardSlotContainer" instance=ExtResource("4_m6yoo")]
+layout_mode = 0
+offset_left = 609.0
+offset_top = 460.0
+offset_right = 759.0
 offset_bottom = 610.0
 types = Array[int]([0, 3, 2])
 
 [node name="CardInventoryComponent" parent="Board/AllySide" instance=ExtResource("5_kmtu5")]
+
+[node name="Graveyard" parent="Board/AllySide" instance=ExtResource("9_tb51e")]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 455.0
+offset_right = 190.0
+offset_bottom = 605.0
+
+[node name="InsideArea" type="Control" parent="Board/AllySide"]
+layout_mode = 1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="EnemySide" type="Control" parent="Board"]
 anchors_preset = 0
@@ -89,55 +108,56 @@ script = ExtResource("2_fhjf2")
 
 [node name="Deck" parent="Board/EnemySide" instance=ExtResource("3_lun4x")]
 layout_mode = 0
-offset_left = 834.0
-offset_top = 142.0
-offset_right = 984.0
-offset_bottom = 292.0
+offset_left = 896.0
+offset_top = 40.0
+offset_right = 1046.0
+offset_bottom = 190.0
 mouse_filter = 0
 
-[node name="CardHolderContainer" type="Control" parent="Board/EnemySide"]
+[node name="CardSlotContainer" type="Control" parent="Board/EnemySide"]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="CardSlot" parent="Board/EnemySide/CardHolderContainer" instance=ExtResource("4_m6yoo")]
+[node name="CardSlot" parent="Board/EnemySide/CardSlotContainer" instance=ExtResource("4_m6yoo")]
 layout_mode = 0
-offset_left = 213.0
-offset_top = 141.0
-offset_right = 363.0
-offset_bottom = 291.0
+offset_left = 304.0
+offset_top = 40.0
+offset_right = 454.0
+offset_bottom = 190.0
 types = Array[int]([0, 3, 2])
 initCardId = "B002"
 
-[node name="CardHolder2" parent="Board/EnemySide/CardHolderContainer" instance=ExtResource("4_m6yoo")]
+[node name="CardHolder2" parent="Board/EnemySide/CardSlotContainer" instance=ExtResource("4_m6yoo")]
 layout_mode = 0
-offset_left = 413.0
-offset_top = 141.0
-offset_right = 563.0
-offset_bottom = 291.0
+offset_left = 453.0
+offset_top = 40.0
+offset_right = 603.0
+offset_bottom = 190.0
 types = Array[int]([0, 3, 2])
 
-[node name="CardHolder3" parent="Board/EnemySide/CardHolderContainer" instance=ExtResource("4_m6yoo")]
+[node name="CardHolder3" parent="Board/EnemySide/CardSlotContainer" instance=ExtResource("4_m6yoo")]
 layout_mode = 0
-offset_left = 599.0
-offset_top = 146.0
-offset_right = 749.0
-offset_bottom = 296.0
+offset_left = 605.0
+offset_top = 40.0
+offset_right = 755.0
+offset_bottom = 190.0
 types = Array[int]([0, 3, 2])
 
 [node name="CardInventoryComponent" parent="Board/EnemySide" instance=ExtResource("5_kmtu5")]
+
+[node name="Graveyard" parent="Board/EnemySide" instance=ExtResource("9_tb51e")]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 190.0
+offset_bottom = 190.0
 
 [node name="AllyHand" parent="." instance=ExtResource("1_olbnx")]
 layout_mode = 1
 
 [node name="EnemyHand" parent="." instance=ExtResource("1_olbnx")]
 layout_mode = 1
-
-[node name="CardContainer" parent="EnemyHand" index="0"]
-visible = false
-
-[node name="ClickableComponent" parent="EnemyHand" index="1"]
-visible = false
 
 [node name="EndTurn" type="Button" parent="."]
 layout_mode = 1

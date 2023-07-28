@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://n1sl8tppdbj6"]
 
 [ext_resource type="Script" path="res://Scripts/hand.gd" id="1_cyind"]
-[ext_resource type="PackedScene" uid="uid://c1duabcd1f5pc" path="res://Scenes/Match/Cards/BaseCard.tscn" id="2_xqatj"]
+[ext_resource type="PackedScene" uid="uid://d333n20k3x7bi" path="res://Scenes/Match/Cards/MonsterCard.tscn" id="2_j15oy"]
 [ext_resource type="PackedScene" uid="uid://cv65w6yfsbnhj" path="res://Scenes/Components/ClickableComponent.tscn" id="3_3j360"]
 [ext_resource type="PackedScene" uid="uid://cne3o0ms458al" path="res://Scenes/Components/CardInventoryComponent.tscn" id="4_y6yh4"]
 
@@ -14,7 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_cyind")
-cardScene = ExtResource("2_xqatj")
+monsterCard = ExtResource("2_j15oy")
 
 [node name="CardContainer" type="HBoxContainer" parent="."]
 layout_mode = 1

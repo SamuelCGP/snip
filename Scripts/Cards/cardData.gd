@@ -71,7 +71,7 @@ static func deserialize(cardId: String) -> CardData:
 				int(data.willCost),
 				data.effect,
 				int(data.attack),
-				int(data.life),
+				int(data.hp),
 				data.sigils
 			)
 		IdChar.SPELL:

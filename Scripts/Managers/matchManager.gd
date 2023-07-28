@@ -36,8 +36,8 @@ func _ready():
 
 func onSummonTargetSet(card: CardNode, target: CardSlot, boardSide: BoardSide):
 	hands[card.playerOwner.id].removeCard(card)
-	boardSide.placeCardAtHolder(card, target)
 	card.state = CardNode.CardState.SUMMONED
+	boardSide.placeCardAtSlot(card, target)
 	playerManager.onCardSummon(card)
 
 func onSummonAttempt(card: CardNode):
@@ -45,7 +45,7 @@ func onSummonAttempt(card: CardNode):
 	boardSide.onSummonAttempt(card)
 
 func verifyCardCanSummon(card: CardNode):
-	if turnStats.turnPlayer.id == card.playerOwner.id:
+	if card.playerOwner.isTurnPlayer:
 		if card.state == CardNode.CardState.IN_HAND:
 			if !card.cardData.willCost:
 				card.canSummon = true
@@ -76,7 +76,6 @@ func newPlayerTurn():
 	)
 
 	turnStats.playerTurnNumber += 1
-
 	turnStats.turnPhaseIndex = 0
 
 	if turnStats.playerTurnNumber >= 2:

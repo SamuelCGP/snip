@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://cvw5tn7hsvms5"]
+
+[ext_resource type="Texture2D" uid="uid://jwp02pdenjg6" path="res://Sprites/Graveyard.png" id="1_rgola"]
+[ext_resource type="Script" path="res://Scripts/graveyard.gd" id="2_crkln"]
+[ext_resource type="PackedScene" uid="uid://cne3o0ms458al" path="res://Scenes/Components/CardInventoryComponent.tscn" id="3_li6v7"]
+
+[node name="Graveyard" type="TextureRect"]
+texture_filter = 1
+texture_repeat = 1
+custom_minimum_size = Vector2(150, 150)
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_rgola")
+script = ExtResource("2_crkln")
+
+[node name="CardInventoryComponent" parent="." instance=ExtResource("3_li6v7")]

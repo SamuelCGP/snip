@@ -4,7 +4,13 @@ enum TurnPhase { DRAW, MAIN, END }
 
 var turnPhaseOrder: Array[TurnPhase] = [TurnPhase.DRAW, TurnPhase.MAIN, TurnPhase.END]
 
-var turnPlayer: Player
+var turnPlayer: Player:
+	set(value):
+		if turnPlayer:
+			turnPlayer.isTurnPlayer = false
+
+		turnPlayer = value
+		value.isTurnPlayer = true
 
 var turnNumber: int = 1
 var playerTurnNumber: int = 1

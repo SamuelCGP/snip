@@ -5,6 +5,8 @@ enum FlipState { DOWN = 0, UP = 1 }
 
 signal clicked(card: CardNode)
 signal summonAttempted(card: CardNode)
+signal attackAttempted(card: CardNode)
+signal destroyed(card: CardNode)
 
 @onready var cardNameLabel: Label = $CardName
 @onready var contextMenu: VBoxContainer = $ContextMenu
@@ -27,6 +29,18 @@ var cardSelected: bool = false:
 			contextMenu.visible = false
 			modulate = Color.WHITE
 
+var canAttack: bool = false:
+	set(value):
+		canAttack = value
+
+		if(playerOwner.id == PlayerManager.PlayerID.ALLY):
+			if(value):
+				showAttackBtn()
+			else:
+				hideAttackBtn()
+
+var canBeTargeted: bool = false
+
 var flipState: FlipState = FlipState.DOWN
 
 var playerOwner: Player
@@ -40,6 +54,7 @@ var canSummon: bool = false:
 				showSummonBtn()
 			else:
 				hideSummonBtn()
+
 
 var state: CardState = CardState.IN_HAND:
 	set(value):
@@ -62,12 +77,17 @@ func showSummonBtn():
 func hideSummonBtn():
 	summonBtn.visible = false
 
+func showAttackBtn():
+	attackBtn.visible = true
+	
+func hideAttackBtn():
+	attackBtn.visible = false
+
 func _on_effect_button_down():
 	pass # Replace with function body.
 
 func _on_attack_button_down():
-	pass # Replace with function body.
+	attackAttempted.emit(self)
 
 func _on_summon_button_down():
-	if canSummon:
-		summonAttempted.emit(self)
+	summonAttempted.emit(self)

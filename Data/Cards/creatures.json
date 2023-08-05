@@ -1,0 +1,86 @@
+{
+	"C001": {
+		"name": "Elfo Furtivo",
+		"types": [
+			"ELF"
+		],
+		"archetype": "NATURE",
+		"attack": 0,
+		"willCost": 1,
+		"hp": 1,
+		"effectText": "Efeito bem legal",
+		"effects": [
+			{
+				"type": "DAMAGE",
+				"params": {
+					"amount": 2
+				},
+				"target": [
+					{
+						"function": "CREATURE",
+						"targetOwner": "OPPONENT",
+						"amount": 1,
+						"locations": [
+							"BOARD"
+						]
+					}
+				],
+				"trigger": {
+					"event": "SUMMON",
+					"params": {
+						"target": [
+							{
+								"isSelf": true
+							}
+						]
+					}
+				},
+				"requirements": {
+					"cardsExist": [
+						{
+							"function": "CREATURE",
+							"targetOwner": "OPPONENT",
+							"amount": 1,
+							"locations": [
+								"BOARD"
+							]
+						}
+					]
+				},
+				"cost": {
+					"energy": 1
+				}
+			}
+		]
+	},
+	"C997": {
+		"name": "Monster Test 1",
+		"archetype": "TEST",
+		"willCost": 1,
+		"types": [
+			"TEST"
+		],
+		"attack": 2,
+		"hp": 1
+	},
+	"C998": {
+		"name": "Monster Test 2",
+		"archetype": "TEST",
+		"willCost": 1,
+		"types": [
+			"TEST"
+		],
+		"attack": 2,
+		"hp": 1
+	},
+	"C999": {
+		"name": "Monster Test 3",
+		"archetype": "TEST",
+		"willCost": 1,
+		"types": [
+			"TEST"
+		],
+		"attack": 2,
+		"hp": 1
+	}
+}

@@ -1,31 +1,22 @@
 extends Node
 
-var playerDeck: Array[CardData] = []
+var playerDeck: Array[String] = []
 
 signal cardAdded(cardData: CardData)
 
-
 func _ready():
 	initializeDeck()
-
 
 func addCard(card: CardData):
 	playerDeck.append(card)
 	cardAdded.emit(card)
 
-
 func initializeDeck():
 	playerDeck = [
-		CardData.deserialize("B001"),
-		CardData.deserialize("B002"),
-		CardData.deserialize("B003"),
-		CardData.deserialize("B001"),
-		CardData.deserialize("B002"),
-		CardData.deserialize("B003"),
-		CardData.deserialize("B001"),
-		CardData.deserialize("B002"),
-		CardData.deserialize("B003"),
-		CardData.deserialize("B001"),
-		CardData.deserialize("B002"),
-		CardData.deserialize("B003")
+		"C001",
+		"C001",
+		"C997",
+		"C998",
+		"C999",
+		"M001"
 	]

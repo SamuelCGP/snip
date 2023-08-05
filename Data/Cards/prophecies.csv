@@ -1,4 +1,4 @@
-id,name,category,attribute,type,will_cost,turn_counter,effect
+id,name,category,archetype,type,will_cost,turn_counter,effect
 P001,Prophecy Test 1,TEST,TEST,TEST,10,3,TEST
 P002,Prophecy Test 2,TEST,TEST,TEST,10,3,TEST
 P003,Prophecy Test 3,TEST,TEST,TEST,10,3,TEST

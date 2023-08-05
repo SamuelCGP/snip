@@ -1,8 +1,13 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://dkk6wb0dyxbg4"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://dkk6wb0dyxbg4"]
 
 [sub_resource type="SystemFont" id="SystemFont_xsprl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6mg57"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q0pop"]
+bg_color = Color(0.796078, 0.796078, 0.796078, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7d4m6"]
 
 [resource]
 default_font = SubResource("SystemFont_xsprl")
@@ -10,3 +15,5 @@ default_font_size = 16
 Label/colors/font_color = Color(0.0196078, 0.0196078, 0.0196078, 1)
 Label/fonts/font = SubResource("SystemFont_xsprl")
 Label/styles/normal = SubResource("StyleBoxEmpty_6mg57")
+Panel/styles/panel = SubResource("StyleBoxFlat_q0pop")
+margin/styles/CardSelector = SubResource("StyleBoxFlat_7d4m6")

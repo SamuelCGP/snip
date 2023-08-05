@@ -14,7 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_cyind")
-monsterCard = ExtResource("2_j15oy")
+creatureCard = ExtResource("2_j15oy")
 
 [node name="CardContainer" type="HBoxContainer" parent="."]
 layout_mode = 1

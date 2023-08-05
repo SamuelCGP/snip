@@ -1,35 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://cy67x21oxawpd"]
+[gd_scene load_steps=5 format=3 uid="uid://cy67x21oxawpd"]
 
 [ext_resource type="Texture2D" uid="uid://bk63dkurwt0lf" path="res://Sprites/Deck.png" id="1_oup05"]
 [ext_resource type="Script" path="res://Scripts/Cards/deckContainer.gd" id="2_hl2l8"]
 [ext_resource type="PackedScene" uid="uid://cv65w6yfsbnhj" path="res://Scenes/Components/ClickableComponent.tscn" id="3_722dj"]
 [ext_resource type="PackedScene" uid="uid://cne3o0ms458al" path="res://Scenes/Components/CardInventoryComponent.tscn" id="4_3j01m"]
 
-[sub_resource type="GDScript" id="GDScript_ldyc6"]
-script/source = "extends Control
-
-
-func disable():
-	get_parent().isEnabled = false
-
-
-func enable():
-	get_parent().isEnabled = true
-"
-
 [node name="Deck" type="TextureRect"]
 texture_filter = 1
 texture_repeat = 1
-custom_minimum_size = Vector2(150, 150)
+custom_minimum_size = Vector2(100, 100)
 texture = ExtResource("1_oup05")
 script = ExtResource("2_hl2l8")
 
 [node name="ClickableComponent" parent="." instance=ExtResource("3_722dj")]
 
 [node name="CardInventoryComponent" parent="." instance=ExtResource("4_3j01m")]
-
-[node name="EnabableComponent" type="Control" parent="."]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = SubResource("GDScript_ldyc6")

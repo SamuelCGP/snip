@@ -2,71 +2,59 @@ extends Control
 class_name MatchManager
 
 @onready var playerManager: PlayerManager = $PlayerManager
-@onready var board: Board = $Board
-@onready var hands: Array[Hand] = [$AllyHand, $EnemyHand]
-@onready var decks: Array[DeckContainer] = [board.get_node("AllySide/Deck"), board.get_node("EnemySide/Deck")]
+@onready var effectManager: EffectManager = $EffectManager
+@onready var cardContainers: CardContainers = $CardContainers
 
 var turnStats: TurnStats = TurnStats.new()
 
-func _ready():
-	turnStats.turnPlayer = playerManager.players[PlayerManager.PlayerID.ALLY]
 
-	board.setSideOwners(playerManager.players)
-	for boardSide in board.boardSides:
-		boardSide = boardSide as BoardSide
-		boardSide.summonTargetSet.connect(onSummonTargetSet)
-
-	for id in PlayerManager.PlayerID:
-		var index: int = PlayerManager.PlayerID[id]
-		hands[index].setOwner(playerManager.players[index])
-		hands[index].summonAttempted.connect(onSummonAttempt)
-
-		var rng = RandomNumberGenerator.new()
-		rng.randomize()
-
-		for i in 3:
-			var cardIndex := rng.randi_range(0, DeckManager.playerDeck.size() - 1)
-			var cardData := DeckManager.playerDeck[cardIndex]
-			hands[index].addCard(cardData)
-
-		decks[index].drawnCards.connect(hands[index].onCardsDraw)
+func connectSignals():
+	for hand in cardContainers.hands:
+		hand.cardAdded.connect(effectManager.onCardAddedToHand)
 
 	playerManager.willChanged.connect(onWillChanged)
+	effectManager.effectAttempted.connect(cardContainers.onEffectAttempted)
+	cardContainers.effectRequirementsMet.connect(effectManager.onEffectRequirementsMet)
+	effectManager.effectStarted.connect(onEffectStarted)
+	cardContainers.cardSummoned.connect(onCardSummon)
+
+func _ready():
+	Global.selectedCard = null
+
+	turnStats.turnPlayer = playerManager.players[PlayerManager.PlayerID.ALLY]
+
+	connectSignals()
+
+	cardContainers.setOwners(playerManager.players)
+
 	startDrawPhase()
 
-func onSummonTargetSet(card: CardNode, target: CardSlot, boardSide: BoardSide):
-	hands[card.playerOwner.id].removeCard(card)
-	card.state = CardNode.CardState.SUMMONED
-	boardSide.placeCardAtSlot(card, target)
+
+func onCardSummon(card: CardNode):
 	playerManager.onCardSummon(card)
+	effectManager.onCardSummon(card)
 
-func onSummonAttempt(card: CardNode):
-	var boardSide: BoardSide = board.boardSides[card.playerOwner.id]
-	boardSide.onSummonAttempt(card)
+func onEffectStarted(effect: CardEffectData):
+	var targets: Array[CardData] = []
 
-func verifyCardCanSummon(card: CardNode):
-	if card.playerOwner.isTurnPlayer:
-		if card.state == CardNode.CardState.IN_HAND:
-			if !card.cardData.willCost:
-				card.canSummon = true
-			elif card.cardData.willCost <= card.playerOwner.will:
-				card.canSummon = true
-			else:
-				card.canSummon = false
-		else:
-			card.canSummon = false
+	for filter in effect.targetFilters:
+		str(CardData.Function.find_key(filter.function))
+		targets.append_array(cardContainers.searchCards(effect.source.playerOwner, filter))
+	effectManager.onPossibleTargetsSearch(effect, targets, effect.targetFilters[0].amount)
 
 
 func onWillChanged(_player: Player):
 	for card in get_tree().get_nodes_in_group("card"):
 		card = card as CardNode
 		if turnStats.turnPhase == TurnStats.TurnPhase.MAIN:
-			verifyCardCanSummon(card)
+			card.verifyCanSummon()
 		else:
 			card.canSummon = false
 
+
 func newTurn():
 	playerManager.onTurnStarted(turnStats)
+
 
 func newPlayerTurn():
 	turnStats.turnPlayer = (
@@ -78,32 +66,31 @@ func newPlayerTurn():
 	turnStats.playerTurnNumber += 1
 	turnStats.turnPhaseIndex = 0
 
-	if turnStats.playerTurnNumber >= 2:
+	if turnStats.playerTurnNumber > 2:
 		newTurn()
 
+
 func startMainPhase():
-	board.canBattle = true
+	cardContainers.onMainPhaseStarted()
 	for card in get_tree().get_nodes_in_group("card"):
 		card = card as CardNode
-		verifyCardCanSummon(card)
+		card.verifyCanSummon()
+
 
 func endMainPhase():
-	board.canBattle = false
+	cardContainers.onMainPhaseEnded()
 	for card in get_tree().get_nodes_in_group("card"):
 		card = card as CardNode
 		card.canSummon = false
 
-func setDeckCanDraw(value: bool):
-	for deck in get_tree().get_nodes_in_group("deck"):
-		deck = deck as DeckContainer
-		if deck.playerOwner.id == turnStats.turnPlayer.id:
-			deck.canDraw = value
 
 func startDrawPhase():
-	setDeckCanDraw(true)
+	cardContainers.setDeckCanDraw(true, turnStats.turnPlayer.id)
+
 
 func endDrawPhase():
-	setDeckCanDraw(false)
+	cardContainers.setDeckCanDraw(false, turnStats.turnPlayer.id)
+
 
 func nextPhase():
 	match turnStats.turnPhase:
@@ -121,22 +108,16 @@ func nextPhase():
 	else:
 		turnStats.turnPhaseIndex = newPhaseIndex
 
-	var playerStr = "ENEMY" if turnStats.turnPlayer.id == PlayerManager.PlayerID.ENEMY else "ALLY"
-	var phaseStr: String
-
 	match turnStats.turnPhase:
 		TurnStats.TurnPhase.DRAW:
-			phaseStr = "DRAW"
 			startDrawPhase()
 		TurnStats.TurnPhase.MAIN:
-			phaseStr = "MAIN"
 			startMainPhase()
 		TurnStats.TurnPhase.END:
-			phaseStr = "END"
-
-	print("TURN: " + playerStr + " - " + phaseStr)
+			pass
+	
+	print("TURN: " + PlayerManager.PlayerID.keys()[turnStats.turnPlayer.id]+ " - " + TurnStats.TurnPhase.keys()[turnStats.turnPhase])
 
 
 func _on_end_turn_button_down():
-	#if turnStats.turnPhase != TurnStats.TurnPhase.DRAW:
 	nextPhase()

@@ -1,4 +1,4 @@
-extends Control
+extends TextureRect
 class_name CardNode
 
 enum FlipState { DOWN = 0, UP = 1 }
@@ -7,12 +7,13 @@ signal clicked(card: CardNode)
 signal summonAttempted(card: CardNode)
 signal attackAttempted(card: CardNode)
 signal destroyed(card: CardNode)
+signal markerAdded(card: CardNode)
 
 @onready var cardNameLabel: Label = $CardName
 @onready var contextMenu: VBoxContainer = $ContextMenu
 @onready var summonBtn: Button = contextMenu.get_node("Summon")
 @onready var attackBtn: Button = contextMenu.get_node("Attack")
-@onready var effect: Button = contextMenu.get_node("Effect")
+@onready var effectBtn: Button = contextMenu.get_node("Effect")
 
 enum CardState {
 	SUMMONED, IN_HAND, IN_GRAVEYARD
@@ -44,6 +45,7 @@ var canBeTargeted: bool = false
 var flipState: FlipState = FlipState.DOWN
 
 var playerOwner: Player
+var selectable: bool = true
 
 var canSummon: bool = false:
 	set(value):
@@ -60,15 +62,52 @@ var state: CardState = CardState.IN_HAND:
 	set(value):
 		state = value
 		match(state):
-			CardState.SUMMONED, CardState.IN_GRAVEYARD:
+			CardState.IN_GRAVEYARD:
+				cardData.location = CardFilter.CardLocation.GRAVEYARD
+				selectable = false
 				canSummon = false
+			CardState.SUMMONED:
+				cardData.location = CardFilter.CardLocation.BOARD
+				selectable = true
+
+				if cardData.function != CardData.Function.MAGE:
+					canSummon = false
+			CardState.IN_HAND:
+				cardData.location = CardFilter.CardLocation.HAND
+				selectable = true
 
 func _ready():
 	add_to_group("card")
 
 	cardNameLabel.text = cardData.cardName
 
+func addMarker(attack: int, hp: int):
+	cardData.attack += attack
+	cardData.hp += hp
+
+	markerAdded.emit(self)
+
+func verifyCanSummon():
+	if cardData.function == CardData.Function.MAGE:
+		return
+
+	if playerOwner.isTurnPlayer:
+		if state == CardNode.CardState.IN_HAND:
+			if !cardData.willCost:
+				canSummon = true
+			elif cardData.willCost <= playerOwner.will:
+				canSummon = true
+			else:
+				canSummon = false
+		else:
+			canSummon = false
+
 func onClick():
+	if selectable && playerOwner.id == PlayerManager.PlayerID.ALLY:
+		if Global.selectedCard != self:
+			Global.selectedCard = self
+		else: Global.selectedCard = null
+
 	clicked.emit(self)
 
 func showSummonBtn():
@@ -82,6 +121,12 @@ func showAttackBtn():
 	
 func hideAttackBtn():
 	attackBtn.visible = false
+
+func showEffectBtn():
+	effectBtn.visible = true
+		
+func hideEffectBtn():
+	effectBtn.visible = false
 
 func _on_effect_button_down():
 	pass # Replace with function body.

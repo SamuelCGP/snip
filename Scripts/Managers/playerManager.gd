@@ -10,9 +10,12 @@ var players := {
 }
 
 func onTurnStarted(_turnStats):
-	for player in players:
+	for player in players.values():
 		player.will = min(player.will + player.willPerTurn, player.maxWill)
 
+func addEnergy(type: CardData.Archetype, amount: int):
+	for player in players.values():
+		player.energy[type] += amount
 
 func onCardSummon(
 	card: CardNode,

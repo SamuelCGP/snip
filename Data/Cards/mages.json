@@ -1,0 +1,30 @@
+{
+	"M001": {
+		"name": "Darek",
+		"types": [
+			"ELEMENTAL_MAGE"
+		],
+		"archetype": "SPIRIT",
+		"hp": 20,
+		"skillPoints": 2,
+		"effectText": "Efeito bem legal",
+        "effects": [
+            {
+                "type": "GAIN_ELEMENTAL_ENERGY",
+                "params": {
+                    "amount": 1,
+                    "type": "SPIRIT"
+                },
+                "trigger": {
+                    "event": "CHAIN",
+                    "params": {
+                        "target":
+                            {
+                                "triggerEvents": "DESTROY"
+                            }
+                    }
+                }
+            }
+        ]
+	}
+}

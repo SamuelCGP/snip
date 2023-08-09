@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bu548jaijkx8"]
+[gd_scene load_steps=16 format=3 uid="uid://bu548jaijkx8"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/matchManager.gd" id="1_8upiq"]
 [ext_resource type="PackedScene" uid="uid://n1sl8tppdbj6" path="res://Scenes/Match/Hand.tscn" id="1_olbnx"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://culblxvxqwhww" path="res://Scenes/Match/Cards/MageCard.tscn" id="6_qdpxm"]
 [ext_resource type="PackedScene" uid="uid://cvw5tn7hsvms5" path="res://Scenes/Match/Graveyard.tscn" id="9_tb51e"]
 [ext_resource type="Script" path="res://Scripts/Managers/playerManager.gd" id="12_f627q"]
+[ext_resource type="PackedScene" uid="uid://dtobmppqdnpke" path="res://Scenes/Prompt.tscn" id="14_uek60"]
 
 [node name="Match" type="Control"]
 layout_mode = 3
@@ -243,6 +244,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("3_mhyew")
+promptScene = ExtResource("14_uek60")
 
 [node name="CardSelector" parent="EffectManager" instance=ExtResource("4_f4g74")]
 visible = false

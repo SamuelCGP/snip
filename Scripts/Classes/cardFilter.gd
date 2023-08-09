@@ -8,18 +8,18 @@ enum CardLocation {
 	DECK, BOARD, HAND, GRAVEYARD
 }
 
-var maxWillCost: int
+var maxWillCost: int = -1
 var type: Array[CardData.Type]
 var archetype: Array[CardData.Archetype]
 var function: CardData.Function
 var state: CardNode.CardState
 var targetOwner: TargetOwner
-var attack: int
-var maxAttack: int
-var hp: int
-var maxHp: int
+var attack: int = -1
+var maxAttack: int = -1
+var hp: int = -1
+var maxHp: int = -1
 var ids: Array[String]
-var amount: int
+var amount: int = -1
 var isSelf: bool = false
 var locations: Array[CardLocation]
 
@@ -42,7 +42,7 @@ static func validateFilter(card: CardData, filter: CardFilter) -> bool:
 		if !filter.ids.has(card.id):
 			return false
 
-	if filter.maxWillCost != null:
+	if filter.maxWillCost != -1:
 		if card.will > filter.maxWillCost:
 			return false
 
@@ -54,19 +54,19 @@ static func validateFilter(card: CardData, filter: CardFilter) -> bool:
 		if !filter.archetype.has(card.archetype):
 			return false
 
-	if filter.attack != null:
+	if filter.attack != -1:
 		if filter.attack != card.attack:
 			return false
 
-	if filter.maxAttack != null:
+	if filter.maxAttack != -1:
 		if card.attack > filter.maxAttack:
 			return false
 
-	if filter.hp != null:
+	if filter.hp != -1:
 		if filter.hp != card.hp:
 			return false
 
-	if filter.maxHp != null:
+	if filter.maxHp != -1:
 		if card.maxHp > filter.maxHp:
 			return false
 
@@ -88,7 +88,6 @@ static func deserialize(filtersData: Array) -> Array[CardFilter]:
 				filter.targetOwner = CardFilter.TargetOwner.get(data.targetOwner)
 			if data.has("function"):
 				filter.function = CardData.Function.get(data.function)
-				var test = CardData.Function.get(data.function)
 			if data.has("amount"): 
 				filter.amount = data.amount
 			if data.has("locations"):

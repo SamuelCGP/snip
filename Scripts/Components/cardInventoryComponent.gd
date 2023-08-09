@@ -5,7 +5,7 @@ var cards: Array[CardData]
 
 func searchCards(filter: CardFilter) -> Array[CardData]:
 	var result: Array[CardData] = []
-
+	
 	for card in cards:
 		card = card as CardData
 

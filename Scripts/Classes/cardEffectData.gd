@@ -13,7 +13,7 @@ var source: CardNode
 var type: Type
 var typeParams: Dictionary
 
-var targetFilters: Array[CardFilter]
+var targetFilters: Array[CardFilter] = []
 
 var triggerEvent: EffectTriggerEvent
 var triggerParams: Dictionary
@@ -24,6 +24,15 @@ var cost := {
 	will = 0,
 	energy = 0
 }
+
+func hasCost() -> bool:
+	if cost.will > 0:
+		return true
+
+	if cost.energy > 0:
+		return true
+
+	return false
 
 static func deserialize(effectData: Dictionary) -> CardEffectData:
 	var effect: CardEffectData = CardEffectData.new()
@@ -36,7 +45,7 @@ static func deserialize(effectData: Dictionary) -> CardEffectData:
 		var filters: Array[CardFilter] = CardFilter.deserialize(targetData)
 		effect.targetFilters = filters
 
-	effect.triggerEvent = effectData.trigger.event
+	effect.triggerEvent = EffectTriggerEvent.get(effectData.trigger.event)
 
 	if effectData.trigger.has("params"):
 		effect.triggerParams = effectData.trigger.params

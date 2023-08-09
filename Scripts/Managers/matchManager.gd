@@ -16,6 +16,10 @@ func connectSignals():
 	effectManager.effectAttempted.connect(cardContainers.onEffectAttempted)
 	cardContainers.effectRequirementsMet.connect(effectManager.onEffectRequirementsMet)
 	effectManager.effectStarted.connect(onEffectStarted)
+
+	for side in cardContainers.board.boardSides:
+		side.mageSummoned.connect(effectManager.onMageSummoned)
+
 	cardContainers.cardSummoned.connect(onCardSummon)
 
 func _ready():
@@ -26,6 +30,10 @@ func _ready():
 	connectSignals()
 
 	cardContainers.setOwners(playerManager.players)
+	for card in get_tree().get_nodes_in_group("card"):
+		card = card as CardNode
+		if card.cardData.function == CardData.Function.MAGE:
+			effectManager.addCardEffects(card)
 
 	startDrawPhase()
 
@@ -35,12 +43,18 @@ func onCardSummon(card: CardNode):
 	effectManager.onCardSummon(card)
 
 func onEffectStarted(effect: CardEffectData):
-	var targets: Array[CardData] = []
+	playerManager.onEffectStarted(effect)
 
-	for filter in effect.targetFilters:
-		str(CardData.Function.find_key(filter.function))
-		targets.append_array(cardContainers.searchCards(effect.source.playerOwner, filter))
-	effectManager.onPossibleTargetsSearch(effect, targets, effect.targetFilters[0].amount)
+	if(effect.targetFilters.is_empty()):
+		effectManager.executeEffect(effect)
+	else:
+		var targets: Array[CardData] = []
+
+		for filter in effect.targetFilters:
+			str(CardData.Function.find_key(filter.function))
+			targets.append_array(cardContainers.searchCards(effect.source.playerOwner, filter))
+
+		effectManager.onPossibleTargetsSearch(effect, targets, effect.targetFilters[0].amount)
 
 
 func onWillChanged(_player: Player):

@@ -23,6 +23,16 @@ func onEffectAttempted(effect: CardEffectData):
 		effectRequirementsMet.emit(effect)
 
 func effectRequirementsCheck(effect: CardEffectData) -> bool:
+	if effect.hasCost():
+		if effect.cost.will > effect.source.playerOwner.will:
+			return false
+		
+		if effect.cost.energy > PlayerManager.getEnergy(effect.source.playerOwner, effect.source.cardData.archetype):
+			return false
+
+	if(effect.requirements == null):
+		return true
+
 	var requirements := effect.requirements
 
 	if requirements.cardsExist:

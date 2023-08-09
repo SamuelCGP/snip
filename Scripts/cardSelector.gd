@@ -1,16 +1,16 @@
 extends CenterContainer
 class_name CardSelector
 
+signal cardsSelected
+
 @export var uiCardScene: PackedScene
 @export var locationContainerScene: PackedScene
 
-signal cardsSelected
+@onready var resultsContainer = %ResultsContainer
 
 var selectedCards: Array[CardData]
-
 var minCards: int
 var maxCards: int
-
 
 func start(cards: Array[CardData], maxAmount: int, minAmount: int = 1):
 	visible = true
@@ -23,6 +23,11 @@ func stop():
 	visible = false
 	minCards = 0
 	maxCards = 0
+	
+	for child in resultsContainer.get_children():
+		resultsContainer.remove_child(child)
+		child.queue_free()
+
 	selectedCards = []
 
 
@@ -34,7 +39,7 @@ func renderCards(cards: Array[CardData]):
 
 		if !locationContainers.get(card.location):
 			var locationContainer = locationContainerScene.instantiate()
-			$%ResultsContainer.add_child(locationContainer)
+			resultsContainer.add_child(locationContainer)
 
 			var label: Label = locationContainer.get_node("%ContainerLabel")
 			label.text = CardFilter.CardLocation.find_key(card.location)

@@ -5,26 +5,26 @@
 			"ELEMENTAL_MAGE"
 		],
 		"archetype": "SPIRIT",
-		"hp": 20,
+		"hp": 1,
 		"skillPoints": 2,
 		"effectText": "Efeito bem legal",
-        "effects": [
-            {
-                "type": "GAIN_ELEMENTAL_ENERGY",
-                "params": {
-                    "amount": 1,
-                    "type": "SPIRIT"
-                },
-                "trigger": {
-                    "event": "CHAIN",
-                    "params": {
-                        "target":
-                            {
-                                "triggerEvents": "DESTROY"
-                            }
-                    }
-                }
-            }
-        ]
+		"effects": [
+			{
+				"type": "GAIN_ELEMENTAL_ENERGY",
+				"params": {
+					"amount": 1,
+					"energyType": "SPIRIT"
+				},
+				"trigger": {
+					"event": "CHAIN",
+					"params": {
+						"target":
+							{
+								"triggerEffects": ["DAMAGE"]
+							}
+					}
+				}
+			}
+		]
 	}
 }

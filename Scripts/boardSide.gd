@@ -21,6 +21,7 @@ func getSlots() -> Array[Node]:
 
 signal summonTargetSet(card: CardNode, target: CardSlot, boardSide: BoardSide)
 signal cardPlaced(card: CardNode, slot: CardSlot, boardSide: BoardSide)
+signal mageSummoned(card: CardNode)
 
 var summoningCard: CardNode = null
 
@@ -60,6 +61,7 @@ func summonMage():
 
 	mageNode.state = CardNode.CardState.SUMMONED
 	placeCardAtSlot(mageNode, mageSlot)
+	mageSummoned.emit(mageNode)
 
 func hasSummonedCards() -> bool:
 	return !summonedCardsInv.isEmpty()

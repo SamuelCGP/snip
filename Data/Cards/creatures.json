@@ -61,7 +61,10 @@
 			"TEST"
 		],
 		"attack": 2,
-		"hp": 1
+		"hp": 1,
+		"sigils": [
+			"HASTE"
+		]
 	},
 	"C998": {
 		"name": "Monster Test 2",
